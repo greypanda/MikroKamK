@@ -1,0 +1,172 @@
+
+<MyButton@Button>:
+    color: .8,.9,0,1
+    font_size: 32
+<MyToggleButton@ToggleButton>:
+    color: .8,.9,0,1
+    font_size: 32
+<MyImage@Image>:
+    source: 'titlepic.jpg'
+<MySlider@Slider>:
+    orientation: 'vertical'
+    width: 30
+    height: 200
+    size_hint: None,None
+
+#<Widget>:
+#    canvas.after:
+#        Line:
+#            rectangle: self.x+1,self.y+1,self.width-1,self.height-1
+#            dash_offset: 5
+#            dash_length: 3
+
+<HBoxWidget>:
+    BoxLayout:
+        width: 460
+        height: 480
+        pos: root.pos
+        orientation: 'horizontal'
+        BoxLayout:
+            orientation: 'vertical'
+            width:480
+            height:460
+            size_hint: None,None
+            Label:
+                text: 'No USB Drive'
+                size_hint: None,None
+                size: 460,20
+            MyImage:
+                size_hint: None,None
+                allow_stretch: True
+                keep_ratio: True
+                size: 420,420
+
+        BoxLayout:
+            orientation: 'vertical'
+            width: 60
+            height: 480
+            size_hint: None,None
+
+            Label:
+                borders: 5, 'solid', (1,1,1,1)
+                text:"Bright"
+                size_hint: None,None
+                pos: 10,10
+                size: 60,20
+            BoxLayout:
+                orientation: 'horizontal'
+                canvas.after:
+                    Line:
+                        rectangle: self.x+1,self.y+1,self.width-1,self.height-1
+#                       dash_offset: 5
+#                        dash_length: 3
+                
+                
+          
+                
+                MySlider:
+                    id: brightness_id 
+                  
+                    value: app.brightness
+                    on_value: app.brightness = args[1]
+                    min: 0
+                    max: 100
+                    
+                    
+                    borders: 5, 'solid', (1,1,1,1)
+                    step: 1
+                Label:
+                    text: str(int(brightness_id.value))
+                    width: 30
+                    size_hint: None,None
+
+            Label:
+                borders: 5, 'solid', (1,1,1,1)
+                text:"Contrast"
+                size_hint: None,None
+                pos: 10,10
+                size: 60,20
+            BoxLayout:
+                orientation: 'horizontal'
+                canvas.after:
+                    Line:
+                        rectangle: self.x+1,self.y+1,self.width-1,self.height-1
+                MySlider:
+                    id: contrast_id
+                    value: app.contrast
+                    on_value: app.contrast = args[1]
+                    min: 0
+                    max: 100
+                    step: 1
+
+                Label: 
+                    text: str(int(contrast_id.value))
+                    width: 30
+                    size_hint: None,None
+                    
+        BoxLayout:
+            orientation: 'vertical'
+            size: (150,480)
+            size_hint: None,None
+            canvas.after:
+                Line:
+                    rectangle: self.x+1,self.y+1,self.width-1,self.height-1            
+            MyButton:
+                id: Snapshot_Button_id
+                text: "Snapshot"
+                canvas.after:
+                    Line:
+                        rectangle: self.x+1,self.y+1,self.width-1,self.height-1                 
+                size: (20,30)
+                halign: 'center'
+                background_normal: ''
+                background_color: 0,.7,0,1
+            Label:
+                size_hint: None,None
+                height: 20  
+            
+            MyToggleButton:
+                id: Preview_Button_id
+                text: "Start\nPreview"
+                background_color: 0,.7,0,1
+                background_normal: ''
+                halign: 'center'
+                
+                on_state: self.text = "START\nPreview" if self.state == "normal" else "STOP\nPreview"
+                on_state: Snapshot_Button_id.disabled = False if self.state == "normal" else True
+                on_state: Menu_Button_id.disabled = False if self.state == "normal" else True
+                on_state: Quit_Button_id.disabled = False if self.state == "normal" else True
+        BoxLayout:
+            orientation: 'vertical'
+            size: (100,480)
+            canvas.after:
+                Line:
+                    rectangle: self.x+1,self.y+1,self.width-1,self.height-1        
+            size_hint: None,None
+           
+
+                
+            Label:
+                text: ""
+            MyButton:
+                id: Menu_Button_id
+                text: "Menu"
+                background_color: 0,.5,.5,1
+                background_normal: ''
+                halign: 'center'
+            MyButton:
+                id: Quit_Button_id
+                text: "Quit"
+                background_color: .8,0,0,1
+                background_normal: ''
+
+                halign: 'center'
+ 
+<VBoxWidget>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        id: foo_bar
+        orientation: 'vertical'
+        HBoxWidget:
+#       HBoxWidget:
